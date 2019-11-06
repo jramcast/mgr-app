@@ -1,0 +1,242 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "node": true
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended"],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+    "globals": {
+        "beforeAll": false,
+        "afterAll": false,
+        "beforeEach": false,
+        "afterEach": false,
+        "describe": false,
+        "expect": false,
+        "jest": false,
+        "test": false
+    },
+    "rules": {
+        "@typescript-eslint/explicit-member-accessibility": ["error", {
+            "accessibility": "explicit",
+            "overrides": {
+                "accessors": "explicit",
+                "constructors": "no-public",
+                "methods": "explicit",
+                "properties": "explicit",
+                "parameterProperties": "explicit"
+            }
+        }],
+        "@typescript-eslint/explicit-function-return-type": ["error", {
+            "allowExpressions": true
+        }],
+        "@typescript-eslint/indent": [
+            "error",
+            4,
+            {
+                "FunctionExpression": {
+                    "body": 1,
+                    "parameters": "first"
+                },
+                "SwitchCase": 1
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/member-ordering": ["error"],
+        "@typescript-eslint/no-inferrable-types": [
+            "error",
+            {
+                "ignoreParameters": true
+            }
+        ],
+        "@typescript-eslint/no-misused-new": ["error"],
+        "@typescript-eslint/no-parameter-properties": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-useless-constructor": ["error"],
+        "@typescript-eslint/prefer-function-type": ["error"],
+        "@typescript-eslint/type-annotation-spacing": ["error"],
+        "brace-style": ["error"],
+        "capitalized-comments": [
+            "error",
+            "always",
+            {
+                "ignoreConsecutiveComments": true
+            }
+        ],
+        "class-methods-use-this": "off",
+        "comma-dangle": ["error", "never"],
+        "complexity": ["error", 7],
+        "curly": ["error", "all"],
+        "eqeqeq": ["error", "always"],
+        "generator-star-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "import/no-deprecated": ["error"],
+        "import/no-unresolved": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "newlines-between": "always"
+            }
+        ],
+        "import/newline-after-import": [
+            "error",
+            {
+                "count": 2
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "max-params": ["error", 5],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        "max-len": ["error", 100, {
+            "ignorePattern": "^import.*"
+        }],
+        "max-lines": ["error", 300],
+        "max-statements": [
+            "error",
+            25,
+            {
+                "ignoreTopLevelFunctions": true
+            }
+        ],
+        "new-cap": [
+            "error",
+            {
+                "newIsCap": false
+            }
+        ],
+        "no-await-in-loop": "off",
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+        "no-continue": "off",
+        "no-empty-function": [
+            "error",
+            {
+                "allow": ["arrowFunctions", "constructors"]
+            }
+        ],
+        "no-invalid-this": ["error"],
+        "no-loop-func": "off",
+        "no-magic-numbers": [
+            "error",
+            {
+                "ignore": [
+                    -1,
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    16,
+                    128,
+                    256,
+                    512,
+                    1000,
+                    1024,
+                    2048,
+                    4096,
+                    8192,
+                    16384,
+                    200,
+                    400,
+                    403,
+                    404,
+                    500
+                ]
+            }
+        ],
+        "no-dupe-class-members": "off",
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
+        "no-plusplus": "off",
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": ["rxjs/Rx"]
+            }
+        ],
+        "no-restricted-syntax": "off",
+        "no-underscore-dangle": [
+            "error",
+            {
+                "allow": ["_id"]
+            }
+        ],
+        "no-use-before-define": "off",
+        "no-useless-constructor": "off",
+        "object-shorthand": "off",
+        "operator-linebreak": [
+            "error",
+            "after",
+            {
+                "overrides": {
+                    "?": "before",
+                    ":": "before"
+                }
+            }
+        ],
+        "padded-blocks": [
+            "error",
+            {
+                "classes": "always",
+                "blocks": "never",
+                "switches": "never"
+            }
+        ],
+        "prefer-destructuring": "off",
+        "quotes": ["error", "double"],
+
+        "space-before-function-paren": "off"
+    },
+    "overrides": [
+        {
+            "files": ["*.test.ts", "*.spec.ts"],
+            "rules": {
+                "padded-blocks": "off",
+                "no-magic-numbers": "off"
+            }
+        }
+    ]
+}

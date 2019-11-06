@@ -1,0 +1,22 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es5",
+        "outDir": "dist",
+        "module": "es6",
+        "sourceMap": true,
+        "removeComments": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./source/@types"
+        ],
+        "allowJs": false
+    },
+    "include": [
+        "source/**/**/*.ts"
+    ]
+}

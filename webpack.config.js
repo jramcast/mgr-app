@@ -1,29 +1,32 @@
-const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: './source/index.ts',
+    entry: "./source/index.ts",
     module: {
         rules: [
             {
                 test: /\.ts$/,
-                use: 'ts-loader',
+                loader: "ts-loader",
                 exclude: /node_modules/,
+                options: {
+                    configFile: "tsconfig.build.json"
+                }
             },
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: [".tsx", ".ts", ".js"],
     },
     output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
+        filename: "index.js",
+        path: path.resolve(__dirname, "dist"),
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Music Genre Classification DEMO',
-            template: 'source/index.html'
+            title: "Music Genre Classification DEMO",
+            template: "source/index.html"
         })
     ],
-    devtool: 'inline-source-map',
+    devtool: "inline-source-map",
 };

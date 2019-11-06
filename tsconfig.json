@@ -1,21 +1,7 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "target": "es5",
-        "outDir": "dist",
-        "module": "es6",
-        "sourceMap": true,
-        "removeComments": true,
-        "moduleResolution": "node",
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "typeRoots": [
-            "./node_modules/@types",
-            "./source/@types"
-        ],
-        "allowJs": true
-    },
+    "extends": "./tsconfig.build.json",
     "include": [
-        "source/**/**/*.ts"
+        "source/**/**/*.ts",
+        "test/**/**/*.ts"
     ]
 }
