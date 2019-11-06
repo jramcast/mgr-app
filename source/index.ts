@@ -1,0 +1,1 @@
+document.body.innerHTML = "This is a test";
