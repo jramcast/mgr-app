@@ -4,7 +4,7 @@ import * as index from "../source/index";
 describe("dummy", () => {
 
 
-    test("xxx", () => {
+    it("xxx", () => {
         expect(index.dummy).toBe("This is a test");
     });
 
