@@ -7,8 +7,8 @@
     "test": "jest --watch",
     "lint": "eslint --ext=.ts source/** test/**",
     "lint:fix": "eslint --ext .ts . --fix",
-    "build": "webpack",
-    "build:dev": "webpack --watch"
+    "build": "BUILD_ENV=production webpack",
+    "build:dev": "BUILD_ENV=development webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "author": "jaime.ram@gmail.com",
   "license": "MIT",

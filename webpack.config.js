@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+    mode: process.env.BUILD_ENV,
     entry: "./source/index.ts",
     module: {
         rules: [
@@ -29,4 +30,10 @@ module.exports = {
         })
     ],
     devtool: "inline-source-map",
+
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
+    }
 };
