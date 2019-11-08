@@ -5,7 +5,7 @@
         "project": "./tsconfig.json"
     },
     "env": {
-        "node": true
+        "browser": true
     },
     "plugins": ["@typescript-eslint"],
     "extends": ["airbnb-base", "plugin:@typescript-eslint/recommended"],
@@ -17,6 +17,7 @@
         }
     },
     "globals": {
+        "YT": false,
         "beforeAll": false,
         "afterAll": false,
         "beforeEach": false,
@@ -24,7 +25,8 @@
         "describe": false,
         "expect": false,
         "jest": false,
-        "test": false
+        "test": false,
+        "it": false
     },
     "rules": {
         "@typescript-eslint/explicit-member-accessibility": ["error", {
@@ -171,6 +173,7 @@
                     512,
                     1000,
                     1024,
+                    1280,
                     2048,
                     4096,
                     8192,

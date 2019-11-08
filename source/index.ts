@@ -1,3 +1,11 @@
-export const dummy = "This is a test";
+import YouTubePlayer from "./View/YouTubePlayer";
+import SongForm from "./View/Components/SongForm";
 
-console.log(dummy); // eslint-disable-line no-console
+
+const form = new SongForm("songForm", "songUri");
+const player = new YouTubePlayer("player");
+
+form.onSubmit(() => {
+    player.play(form.getSongUri());
+});
+

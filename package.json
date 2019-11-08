@@ -26,6 +26,8 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^24.0.22",
+    "@types/jsdom": "^12.2.4",
+    "@types/youtube": "0.0.38",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
@@ -34,10 +36,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jasmine-core": "^3.5.0",
     "jest": "^24.9.0",
-    "karma": "^4.4.1",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-jasmine": "^2.0.1",
-    "karma-typescript": "^4.1.1",
+    "jsdom": "^15.2.1",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.2",
@@ -65,7 +64,7 @@
     "testMatch": [
       "**/test/**/*.+(spec|test).(ts|js)"
     ],
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "collectCoverageFrom": [
       "source/**"
     ],
