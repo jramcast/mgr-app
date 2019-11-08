@@ -6,8 +6,9 @@ export type PlayerStoppedEventHandler = (second: number) => any;
  */
 export interface Player {
 
-    play(videoUri: string): Promise<void>;
-    onPlaying(handler: PlayerPlayingEventHandler): void;
+    play(mediaUri: string): Promise<void>;
+    getCurrentTime(): number;
+    onStartedPlaying(handler: PlayerPlayingEventHandler): void;
     onStopped(handler: PlayerStoppedEventHandler): void;
     destroy(): void;
 

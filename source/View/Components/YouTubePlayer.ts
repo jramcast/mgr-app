@@ -1,4 +1,4 @@
-import { Player, PlayerPlayingEventHandler, PlayerStoppedEventHandler } from "./Player";
+import { Player, PlayerPlayingEventHandler, PlayerStoppedEventHandler } from "../Player";
 
 
 /**
@@ -51,7 +51,14 @@ export default class YouTubePlayer implements Player {
         });
     }
 
-    public onPlaying(handler): void {
+    public getCurrentTime(): number {
+        if (this.player) {
+            return this.player.getCurrentTime();
+        }
+        return 0;
+    }
+
+    public onStartedPlaying(handler): void {
         this.onPlayingHandler = handler;
     }
 

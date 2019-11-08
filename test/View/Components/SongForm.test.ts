@@ -1,6 +1,6 @@
 import { JSDOM } from "jsdom";
 
-import SongForm from "../../source/View/Components/SongForm";
+import SongForm from "../../../source/View/Components/SongForm";
 
 
 describe("View components: SongForm", () => {
@@ -14,7 +14,7 @@ describe("View components: SongForm", () => {
     });
 
     test("can be created", () => {
-        const form = new SongForm("songForm");
+        const form = new SongForm("songForm", "songUriInput");
     });
 
 });
