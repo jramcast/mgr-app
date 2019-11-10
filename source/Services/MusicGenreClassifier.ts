@@ -11,7 +11,8 @@ export default class MusicGenreClassifier {
 
     constructor(
         private readonly player: Player,
-        private readonly backendAPI: BackendAPI
+        private readonly backendAPI: BackendAPI,
+        private readonly presenter: ResultsPresenter
     ) {
         this.running = false;
     }
@@ -62,5 +63,12 @@ export default class MusicGenreClassifier {
 export interface BackendAPI {
 
     classifySegment(audioSegment: AudioSegment): Promise<ClassificationResults>;
+
+}
+
+
+export interface ResultsPresenter {
+
+    refresh(results): void;
 
 }

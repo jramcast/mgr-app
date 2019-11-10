@@ -2,18 +2,21 @@ import MusicGenreClassifier, { BackendAPI } from "../../source/Services/MusicGen
 import { Player } from "../../source/View/Player";
 import { FakeBackendAPI } from "../_fakes/FakeBackendAPI";
 import FakePlayer from "../_fakes/FakePlayer";
+import ResultsFakePresenter from "../_fakes/ResultsFakePresenter";
 
 
 describe("MusicGenreClassifier", () => {
 
     let backendAPI: BackendAPI;
     let player: Player;
+    let resultsPresenter: ResultsFakePresenter;
     let classifier: MusicGenreClassifier;
 
     beforeEach(() => {
         player = new FakePlayer();
         backendAPI = new FakeBackendAPI();
-        classifier = new MusicGenreClassifier(player, backendAPI);
+
+        classifier = new MusicGenreClassifier(player, backendAPI, resultsPresenter);
     });
 
     // REVIEW
