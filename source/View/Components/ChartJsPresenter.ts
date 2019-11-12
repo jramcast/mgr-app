@@ -13,7 +13,6 @@ export default class ChartJsPresenter implements ResultsPresenter {
     }
 
     public refresh(results: ClassificationResults): void {
-
         const modelNames = Object.keys(results);
 
         modelNames.forEach((key) => {
@@ -27,12 +26,38 @@ export default class ChartJsPresenter implements ResultsPresenter {
 
 
     protected createAreaCharts(): void {
+        this.createAreaChartDomElements("neural_network");
+        this.createAreaChartDomElements("lstm");
+        this.createAreaChartDomElements("naive_bayes");
+        this.createAreaChartDomElements("svm");
+
         this.areaCharts = {
             NeuralNetworkModel: this.createAreaChart("neural_network"),
             lstm: this.createAreaChart("lstm"),
             naiveBayes: this.createAreaChart("naive_bayes"),
             svm: this.createAreaChart("svm")
         };
+    }
+
+    protected createAreaChartDomElements(id: string): void {
+        const canvas = document.createElement("canvas");
+        canvas.id = id;
+        const button = document.createElement("button");
+        button.innerHTML = "Download";
+        const downloadLink = document.createElement("a");
+
+        button.addEventListener("click", () => {
+            const base64Img = this.areaCharts[id].toBase64Image();
+            downloadLink.href = base64Img;
+            downloadLink.download = `${id}.png`;
+            downloadLink.click();
+        });
+        button.className = "download";
+        const chartContainer = document.createElement("div");
+        chartContainer.appendChild(canvas);
+        chartContainer.appendChild(button);
+        chartContainer.appendChild(downloadLink);
+        document.body.append(chartContainer);
     }
 
 
@@ -81,29 +106,35 @@ export default class ChartJsPresenter implements ResultsPresenter {
     protected updateAreaChart(chart: Chart, segmentResults: ClassificationResultsPerSegment): void {
         const dataSetsByLabel = {};
 
-        chart.data.datasets.forEach(function (dataset) {
-            dataSetsByLabel[dataset.label] = dataset;
-        });
+        if (chart.data.datasets) {
+            for (const dataset of chart.data.datasets) {
+                if (dataset.label) {
+                    dataSetsByLabel[dataset.label] = dataset;
+                }
+            }
 
-        segmentResults.forEach(function (prediction) {
-            dataSetsByLabel[prediction.label].data.push(prediction.score);
-        });
+            for (const prediction of segmentResults.labels) {
+                dataSetsByLabel[prediction.label].data.push(prediction.score);
+            }
 
-        chart.data.labels.push(chart.data.labels[chart.data.labels.length - 1] + 10);
+            if (chart.data.labels) {
+                const lastXLabel = chart.data.labels[chart.data.labels.length - 1] as string;
+                const nextXLabel = +lastXLabel + 10;
+                chart.data.labels.push(nextXLabel.toString());
+            }
 
-        chart.update();
+            chart.update();
+        }
     }
 
 
     protected createAreaDataStructure(): any[] {
-        return getLabels().map((label) => {
-            return {
-                label,
-                data: [0],
-                fill: true,
-                backgroundColor: getRandomColor()
-            }
-        })
+        return getLabels().map((label) => ({
+            label,
+            data: [0],
+            fill: true,
+            backgroundColor: getRandomColor()
+        }));
     }
 
 
