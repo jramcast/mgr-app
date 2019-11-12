@@ -18,7 +18,7 @@ const player = new YouTubePlayer(playerElementId);
 const backendAPI = new BackendAPIAxiosAdapter("http://localhost:5000/segment/classify?clip=");
 
 // Setup music classifier service
-const classifier = new MusicGenreClassifier(player, backendAPI);
+const classifier = new MusicGenreClassifier(player, backendAPI, presenter);
 
 form.onSubmit(() => {
     classifier.startLiveClassification(form.getSongUri());

@@ -24,9 +24,11 @@
     "learning"
   ],
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "chart.js": "^2.9.2"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.8.11",
     "@types/jest": "^24.0.22",
     "@types/jsdom": "^12.2.4",
     "@types/youtube": "0.0.38",

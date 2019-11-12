@@ -42,6 +42,7 @@ export default class MusicGenreClassifier {
 
     private handlePlayerStopped(): void {
         clearInterval(this.classificationInterval);
+        this.presenter.clear();
     }
 
     private async classifySegment(audioSegment: AudioSegment): Promise<ClassificationResults> {
@@ -50,6 +51,7 @@ export default class MusicGenreClassifier {
             try {
                 this.running = true;
                 result = await this.backendAPI.classifySegment(audioSegment);
+                this.presenter.refresh(result);
             } finally {
                 this.running = false;
             }
@@ -69,6 +71,7 @@ export interface BackendAPI {
 
 export interface ResultsPresenter {
 
-    refresh(results): void;
+    refresh(results: ClassificationResults): void;
+    clear(): void;
 
 }
