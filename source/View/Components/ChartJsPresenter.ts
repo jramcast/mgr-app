@@ -21,7 +21,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
     }
 
     public clear(): void {
-        throw new Error("Method not implemented.");
+        // TODO: clear
     }
 
 
@@ -33,9 +33,9 @@ export default class ChartJsPresenter implements ResultsPresenter {
 
         this.areaCharts = {
             NeuralNetworkModel: this.createAreaChart("neural_network"),
-            lstm: this.createAreaChart("lstm"),
-            naiveBayes: this.createAreaChart("naive_bayes"),
-            svm: this.createAreaChart("svm")
+            LSTMRecurrentNeuralNetwork: this.createAreaChart("lstm"),
+            NaiveBayesModel: this.createAreaChart("naive_bayes"),
+            SVMModel: this.createAreaChart("svm")
         };
     }
 

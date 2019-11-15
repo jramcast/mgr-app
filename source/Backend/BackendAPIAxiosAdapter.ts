@@ -20,11 +20,11 @@ export default class BackendAPIAxiosAdapter implements BackendAPI {
 
         const response = await Axios.get(url);
 
-        return response.data.results;
+        return response.data;
     }
 
     private buildUrl(audioSegment: AudioSegment): string {
-        return `${this.apiBaseUrl}/${audioSegment.mediaUri}?from=${audioSegment.fromSecond}`;
+        return `${this.apiBaseUrl}/segment/classify?clip=${audioSegment.mediaUri}&from=${audioSegment.fromSecond}`;
     }
 
 }

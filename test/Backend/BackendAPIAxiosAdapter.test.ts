@@ -22,12 +22,10 @@ describe("BackendAPIAxiosAdapter", () => {
     test("returns data returned by request to backend", async () => {
         (Axios.get as jest.Mock).mockResolvedValue({
             data: {
-                results: {
-                    NaiveBayes: [{
-                        segment: {},
-                        labels: [{ label: "Pop music", score: 0.2 }]
-                    }]
-                }
+                NaiveBayes: [{
+                    segment: {},
+                    labels: [{ label: "Pop music", score: 0.2 }]
+                }]
             }
         });
 
@@ -52,7 +50,7 @@ describe("BackendAPIAxiosAdapter", () => {
             toSecond: 20
         });
 
-        expect(Axios.get).toHaveBeenLastCalledWith("http://localhost/abc123?from=10");
+        expect(Axios.get).toHaveBeenLastCalledWith("http://localhost/segment/classify?clip=abc123&from=10");
     });
 
 });
