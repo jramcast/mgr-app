@@ -56,7 +56,8 @@ export default class ChartJsPresenter implements ResultsPresenter {
         chartContainer.appendChild(canvas);
         chartContainer.appendChild(button);
         chartContainer.appendChild(downloadLink);
-        document.body.append(chartContainer);
+        const mainContainer = document.getElementsByClassName("main-section");
+        mainContainer[0].append(chartContainer);
     }
 
 

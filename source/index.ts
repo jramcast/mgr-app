@@ -1,3 +1,4 @@
+import "./styles.css";
 import YouTubePlayer from "./View/Components/YouTubePlayer";
 import SongForm from "./View/Components/SongForm";
 import BackendAPIAxiosAdapter from "./Backend/BackendAPIAxiosAdapter";

@@ -4,32 +4,49 @@
 <head>
     <meta charset="utf-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
 <body>
+    <section class="section main-section semitransparent-gradient">
+        <div class="container">
+            <h1 class="title has-text-light">DEMO</h1>
+            <p class="has-text-light">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                software like Aldus PageMaker including versions of Lorem Ipsum
+            </p>
 
-    <form id="songForm" action="">
-        <div class="field has-addons">
-            <div class="control">
-                <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id"
-                    value="7ZMZHbAKvGA">
-            </div>
-            <div class="control">
-                <div class="select is-medium">
-                    <select id="modelSelector" name="model">
-                        <option value="neural_network" selected="selected">Feed-forward Neural Network</option>
-                        <option value="lstm">Recurrent Neural Network (LSTM)</option>
-                        <option value="naive_bayes">Naive Bayes</option>
-                        <option value="svm">Linear SVM</option>
-                    </select>
+            <form id="songForm" action="">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id"
+                                value="7ZMZHbAKvGA">
+                        </div>
+                        <div class="control">
+                            <div class="select is-medium">
+                                <select id="modelSelector" name="model">
+                                    <option value="neural_network" selected="selected">Feed-forward Neural Network</option>
+                                    <option value="lstm">Recurrent Neural Network (LSTM)</option>
+                                    <option value="naive_bayes">Naive Bayes</option>
+                                    <option value="svm">Linear SVM</option>
+                                </select>
+                                </div>
+                        </div>
+                        <div class="control">
+                            <input class="button is-outlined is-medium" type="submit" value="Analyze">
+                        </div>
                     </div>
-            </div>
-            <div class="control">
-                <input class="button is-outlined is-medium" type="submit" value="Analyze">
-            </div>
+                </form>
+                
         </div>
-    </form>
-    <div id="player" style="opacity: 0.1;position: fixed; z-index: -99; width: 100%; height: 100%; top: 0; left: 0" ></div>
+    </section>
+    <div id="player" class="full-background-video"></div>
 </body>
 
 </html>
