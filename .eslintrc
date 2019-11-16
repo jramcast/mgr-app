@@ -143,6 +143,10 @@
             }
         ],
         "no-continue": "off",
+        "arrow-parens": [
+            "error",
+            "as-needed"
+        ],
         "no-empty-function": [
             "error",
             {

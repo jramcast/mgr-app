@@ -1,16 +1,16 @@
 import { AudioSegment } from "./AudioSegment";
 
 
-export interface ClassificationResults {
-    [modelName: string]: ClassificationResultsPerSegment[];
+export interface ClassificationResultsByModel {
+    [modelName: string]: ClassificationResults;
 }
 
-export interface ClassificationResultsPerSegment {
+export interface ClassificationResults {
     segment: AudioSegment;
     labels: LabelClassificationScore[];
 }
 
 export interface LabelClassificationScore {
-    label: string;
+    name: string;
     score: number;
 }

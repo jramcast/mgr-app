@@ -1,7 +1,8 @@
 import Chart from "chart.js";
 
 import { ResultsPresenter } from "../../Services/MusicGenreClassifier";
-import { ClassificationResults, ClassificationResultsPerSegment } from "../../Entities/AudioSegmentClassificationResults";
+import { ClassificationResults } from "../../Entities/ClassificationResultsByModel";
+import AudioClipClassificationResults from "../../Entities/AudioClipClassificationResults";
 
 
 export default class ChartJsPresenter implements ResultsPresenter {
@@ -12,11 +13,9 @@ export default class ChartJsPresenter implements ResultsPresenter {
         this.createAreaCharts();
     }
 
-    public refresh(results: ClassificationResults): void {
-        const modelNames = Object.keys(results);
-
-        modelNames.forEach((key) => {
-            this.updateAreaChart(this.areaCharts[key], results[key][0]);
+    public refresh(results: AudioClipClassificationResults): void {
+        results.models.forEach(modelName => {
+            this.updateAreaChart(modelName, results);
         });
     }
 
@@ -103,107 +102,68 @@ export default class ChartJsPresenter implements ResultsPresenter {
     }
 
 
-    protected updateAreaChart(chart: Chart, segmentResults: ClassificationResultsPerSegment): void {
-        const dataSetsByLabel = {};
+    protected updateAreaChart(modelName: string, results: AudioClipClassificationResults): void {
+        const chart = this.areaCharts[modelName];
 
-        if (chart.data.datasets) {
-            for (const dataset of chart.data.datasets) {
-                if (dataset.label) {
-                    dataSetsByLabel[dataset.label] = dataset;
-                }
-            }
+        const topGenres = results.getTopGenres(modelName, 5);
+        const data = results.getTopGenresScores(modelName, 5);
 
-            for (const prediction of segmentResults.labels) {
-                dataSetsByLabel[prediction.label].data.push(prediction.score);
-            }
+        chart.data.datasets = this.createAreaDataStructure(
+            topGenres,
+            topGenres.map(genre => data[genre])
+        );
 
-            if (chart.data.labels) {
-                const lastXLabel = chart.data.labels[chart.data.labels.length - 1] as string;
-                const nextXLabel = +lastXLabel + 10;
-                chart.data.labels.push(nextXLabel.toString());
-            }
+        // for (const dataset of chart.data.datasets) {
+        //     if (dataset.label) {
+        //         dataSetsByLabel[dataset.label] = dataset;
+        //     }
+        // }
 
-            chart.update();
+        // for (const prediction of segmentResults.labels) {
+        //     dataSetsByLabel[prediction.name].data.push(prediction.score);
+        // }
+
+        if (chart.data.labels) {
+            const SEGMENT_SECONDS = 10;
+            const totalSeconds = results.getSegmentCount() * SEGMENT_SECONDS;
+            chart.data.labels.push(formatTime(totalSeconds));
         }
+
+        chart.update();
+
     }
 
 
-    protected createAreaDataStructure(): any[] {
-        return getLabels().map((label) => ({
+    protected createAreaDataStructure(genres: string[] = [], data?: number[][]): any[] {
+
+        return genres.map((label, index) => ({
             label,
-            data: [0],
+            data: data ? data[index] : [0],
             fill: true,
-            backgroundColor: getRandomColor()
+            backgroundColor: stringToColour(label)
         }));
     }
 
-
 }
 
 
-function getLabels(): string[] {
-    return [
-        "Pop music",
-        "Hip hop music",
-        "Beatboxing",
-        "Rock music",
-        "Heavy metal",
-        "Punk rock",
-        "Grunge",
-        "Progressive rock",
-        "Rock and roll",
-        "Psychedelic rock",
-        "Rhythm and blues",
-        "Soul music",
-        "Reggae",
-        "Country",
-        "Swing music",
-        "Bluegrass",
-        "Funk",
-        "Folk music",
-        "Middle Eastern music",
-        "Jazz",
-        "Disco",
-        "Classical music",
-        "Opera",
-        "Electronic music",
-        "House music",
-        "Techno",
-        "Dubstep",
-        "Drum and bass",
-        "Electronica",
-        "Electronic dance music",
-        "Ambient music",
-        "Trance music",
-        "Music of Latin America",
-        "Salsa music",
-        "Flamenco",
-        "Blues",
-        "Music for children",
-        "New-age music",
-        "Vocal music",
-        "A capella",
-        "Chant",
-        "Mantra",
-        "Music of Africa",
-        "Afrobeat",
-        "Christian music",
-        "Gospel music",
-        "Music of Asia",
-        "Carnatic music",
-        "Music of Bollywood",
-        "Ska",
-        "Traditional music",
-        "Independent music"
-    ];
-}
-
-
-function getRandomColor(): string {
-    const letters = "0123456789ABCDEF".split("");
-    let color = "";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+function stringToColour(str): string {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
     }
-    return color;
+    let colour = "#";
+    for (let i = 0; i < 3; i++) {
+        const value = (hash >> (i * 8)) & 0xFF; // eslint-disable-line
+        colour += ('00' + value.toString(16)).substr(-2); // eslint-disable-line
+    }
+    return colour;
+}
+
+
+function formatTime(totalSeconds: number): string {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds - (minutes * 60);
+    return `${minutes}:${seconds || "00" }`;
+
 }

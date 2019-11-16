@@ -1,6 +1,7 @@
-import { ClassificationResults } from "../Entities/AudioSegmentClassificationResults";
+import { ClassificationResultsByModel } from "../Entities/ClassificationResultsByModel";
 import { AudioSegment } from "../Entities/AudioSegment";
 import { Player } from "../View/Player";
+import AudioClipClassificationResults from "../Entities/AudioClipClassificationResults";
 
 
 export default class MusicGenreClassifier {
@@ -8,6 +9,7 @@ export default class MusicGenreClassifier {
     private running: boolean;
     private audioSegmentSeconds = 10;
     private classificationInterval;
+    private clipResults: AudioClipClassificationResults;
 
     constructor(
         private readonly player: Player,
@@ -18,6 +20,13 @@ export default class MusicGenreClassifier {
     }
 
     public async startLiveClassification(mediaUri: string): Promise<void> {
+        this.clipResults = new AudioClipClassificationResults([
+            "LSTMRecurrentNeuralNetwork",
+            "NaiveBayesModel",
+            "NeuralNetworkModel",
+            "SVMModel"
+        ]);
+
         this.player.onStartedPlaying(() => this.handlePlayerStartedPlaying(mediaUri));
         this.player.onStopped(() => this.handlePlayerStopped());
 
@@ -25,17 +34,11 @@ export default class MusicGenreClassifier {
     }
 
     private handlePlayerStartedPlaying(mediaUri: string): void {
-
-        const currentSecond = Math.round(this.player.getCurrentTime());
-        const segment = {
-            mediaUri,
-            fromSecond: currentSecond,
-            toSecond: currentSecond + this.audioSegmentSeconds
-        };
-
-        this.classifySegment(segment);
+        this.classifySegment(mediaUri);
         this.classificationInterval = setInterval(
-            () => { this.classifySegment(segment); },
+            () => {
+                this.classifySegment(mediaUri);
+            },
             this.audioSegmentSeconds * 1000
         );
     }
@@ -45,13 +48,21 @@ export default class MusicGenreClassifier {
         this.presenter.clear();
     }
 
-    private async classifySegment(audioSegment: AudioSegment): Promise<ClassificationResults> {
+    private async classifySegment(mediaUri: string): Promise<ClassificationResultsByModel> {
+        const currentSecond = Math.round(this.player.getCurrentTime());
+        const segment = {
+            mediaUri,
+            fromSecond: currentSecond,
+            toSecond: currentSecond + this.audioSegmentSeconds
+        };
+
         let result;
         if (!this.running) {
             try {
                 this.running = true;
-                result = await this.backendAPI.classifySegment(audioSegment);
-                this.presenter.refresh(result);
+                result = await this.backendAPI.classifySegment(segment);
+                this.clipResults.add(result);
+                this.presenter.refresh(this.clipResults);
             } finally {
                 this.running = false;
             }
@@ -64,14 +75,14 @@ export default class MusicGenreClassifier {
 
 export interface BackendAPI {
 
-    classifySegment(audioSegment: AudioSegment): Promise<ClassificationResults>;
+    classifySegment(audioSegment: AudioSegment): Promise<ClassificationResultsByModel>;
 
 }
 
 
 export interface ResultsPresenter {
 
-    refresh(results: ClassificationResults): void;
+    refresh(results: AudioClipClassificationResults): void;
     clear(): void;
 
 }

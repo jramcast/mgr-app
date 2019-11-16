@@ -16,7 +16,7 @@ const form = new SongForm(songFormElementId, songInputElementId);
 const player = new YouTubePlayer(playerElementId);
 
 // Setup backend api adapter
-const backendAPI = new BackendAPIAxiosAdapter("http://localhost:5000/segment/classify?clip=");
+const backendAPI = new BackendAPIAxiosAdapter("http://localhost:5000");
 
 // Setup results presenter
 const presenter = new ChartJsPresenter();

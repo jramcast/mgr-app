@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 import { AudioSegment } from "../Entities/AudioSegment";
-import { ClassificationResults } from "../Entities/AudioSegmentClassificationResults";
+import { ClassificationResultsByModel } from "../Entities/ClassificationResultsByModel";
 import { BackendAPI } from "../Services/MusicGenreClassifier";
 
 
@@ -15,7 +15,7 @@ export default class BackendAPIAxiosAdapter implements BackendAPI {
 
     public async classifySegment(
         audioSegment: AudioSegment
-    ): Promise<ClassificationResults> {
+    ): Promise<ClassificationResultsByModel> {
         const url = this.buildUrl(audioSegment);
 
         const response = await Axios.get(url);
@@ -24,7 +24,8 @@ export default class BackendAPIAxiosAdapter implements BackendAPI {
     }
 
     private buildUrl(audioSegment: AudioSegment): string {
-        return `${this.apiBaseUrl}/segment/classify?clip=${audioSegment.mediaUri}&from=${audioSegment.fromSecond}`;
+        const { mediaUri, fromSecond } = audioSegment;
+        return `${this.apiBaseUrl}/segment/classify?clip=${mediaUri}&from=${fromSecond}`;
     }
 
 }
