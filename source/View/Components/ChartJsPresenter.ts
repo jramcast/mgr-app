@@ -1,8 +1,11 @@
 import Chart from "chart.js";
 
 import { ResultsPresenter } from "../../Services/MusicGenreClassifier";
-import { ClassificationResults } from "../../Entities/ClassificationResultsByModel";
 import AudioClipClassificationResults from "../../Entities/AudioClipClassificationResults";
+
+
+const CHART_FONT_COLOR = "white";
+Chart.defaults.global.defaultFontColor = CHART_FONT_COLOR;
 
 
 export default class ChartJsPresenter implements ResultsPresenter {
@@ -25,10 +28,10 @@ export default class ChartJsPresenter implements ResultsPresenter {
 
 
     protected createAreaCharts(): void {
-        this.createAreaChartDomElements("neural_network");
-        this.createAreaChartDomElements("lstm");
-        this.createAreaChartDomElements("naive_bayes");
-        this.createAreaChartDomElements("svm");
+        this.createAreaChartDomElements("neural_network", "NeuralNetworkModel", "Feed-forward network");
+        this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
+        this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
+        this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
 
         this.areaCharts = {
             NeuralNetworkModel: this.createAreaChart("neural_network"),
@@ -38,26 +41,36 @@ export default class ChartJsPresenter implements ResultsPresenter {
         };
     }
 
-    protected createAreaChartDomElements(id: string): void {
+    protected createAreaChartDomElements(elementId: string, chartId: string, name: string): void {
         const canvas = document.createElement("canvas");
-        canvas.id = id;
+        canvas.id = elementId;
+        canvas.height = 100;
         const button = document.createElement("button");
         button.innerHTML = "Download";
         const downloadLink = document.createElement("a");
 
         button.addEventListener("click", () => {
-            const base64Img = this.areaCharts[id].toBase64Image();
+            const base64Img = this.areaCharts[chartId].toBase64Image();
             downloadLink.href = base64Img;
-            downloadLink.download = `${id}.png`;
+            downloadLink.download = `${elementId}.png`;
             downloadLink.click();
         });
-        button.className = "download";
+        button.className = "download button";
+
+        const title = document.createElement("h3");
+        title.className = "title is-3 chart-title";
+        title.innerText = name;
+
         const chartContainer = document.createElement("div");
+        chartContainer.className = "chart-container";
+        chartContainer.appendChild(title);
         chartContainer.appendChild(canvas);
         chartContainer.appendChild(button);
         chartContainer.appendChild(downloadLink);
-        const mainContainer = document.getElementsByClassName("main-section");
-        mainContainer[0].append(chartContainer);
+        const mainContainer = document.getElementById("mainContainer");
+        if (mainContainer) {
+            mainContainer.append(chartContainer);
+        }
     }
 
 
@@ -77,16 +90,13 @@ export default class ChartJsPresenter implements ResultsPresenter {
                 labels: ["0"]
             },
             options: {
-                legend: {
-                    display: true
-                },
                 scales: {
                     xAxes: [{
                         ticks: {
                             beginAtZero: true,
                             display: true,
                             min: 0,
-                            stepSize: 10
+                            stepSize: 10,
                         }
                     }],
                     yAxes: [{
@@ -106,23 +116,13 @@ export default class ChartJsPresenter implements ResultsPresenter {
     protected updateAreaChart(modelName: string, results: AudioClipClassificationResults): void {
         const chart = this.areaCharts[modelName];
 
-        const topGenres = results.getTopGenres(modelName, 5);
-        const data = results.getTopGenresScores(modelName, 5);
+        const topGenres = results.getTopGenres(modelName, 10);
+        const data = results.getTopGenresScores(modelName, 10);
 
         chart.data.datasets = this.createAreaDataStructure(
             topGenres,
             topGenres.map(genre => data[genre])
         );
-
-        // for (const dataset of chart.data.datasets) {
-        //     if (dataset.label) {
-        //         dataSetsByLabel[dataset.label] = dataset;
-        //     }
-        // }
-
-        // for (const prediction of segmentResults.labels) {
-        //     dataSetsByLabel[prediction.name].data.push(prediction.score);
-        // }
 
         if (chart.data.labels) {
             const SEGMENT_SECONDS = 10;
@@ -131,40 +131,83 @@ export default class ChartJsPresenter implements ResultsPresenter {
         }
 
         chart.update();
-
     }
 
 
     protected createAreaDataStructure(genres: string[] = [], data?: number[][]): any[] {
-
         return genres.map((label, index) => ({
             label,
             data: data ? data[index] : [0],
             fill: true,
-            backgroundColor: stringToColour(label)
+            backgroundColor: getGenreColor(label)
         }));
     }
 
 }
 
 
-function stringToColour(str): string {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
-    }
-    let colour = "#";
-    for (let i = 0; i < 3; i++) {
-        const value = (hash >> (i * 8)) & 0xFF; // eslint-disable-line
-        colour += ('00' + value.toString(16)).substr(-2); // eslint-disable-line
-    }
-    return colour;
-}
-
-
 function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds - (minutes * 60);
-    return `${minutes}:${seconds || "00" }`;
+    return `${minutes}:${seconds || "00"}`;
 
+}
+
+function getGenreColor(genre: string): string {
+    const colors = {
+        "Pop music": "#5ede83",
+        "Hip hop music": "#8038be",
+        Beatboxing: "#4bd85b",
+        "Rock music": "#ab0096",
+        "Heavy metal": "#90be06",
+        "Punk rock": "#8373ff",
+        Grunge: "#409600",
+        "Progressive rock": "#ec5ddd",
+        "Rock and roll": "#018c3a",
+        "Psychedelic rock": "#db82ff",
+        "Rhythm and blues": "#316200",
+        "Soul music": "#0153ca",
+        Reggae: "#f68e09",
+        Country: "#718dff",
+        "Swing music": "#c29200",
+        Bluegrass: "#264da8",
+        Funk: "#ee5527",
+        "Folk music": "#41a5ff",
+        "Middle Eastern music": "#d50330",
+        Jazz: "#00b97c",
+        Disco: "#e10074",
+        "Classical music": "#71d9b7",
+        Opera: "#ff3564",
+        "Electronic music": "#02602c",
+        "House music": "#ff7bda",
+        Techno: "#888100",
+        Dubstep: "#cb97ff",
+        "Drum and bass": "#805700",
+        Electronica: "#60c1ff",
+        "Electronic dance music": "#992b03",
+        "Ambient music": "#92c0ff",
+        "Trance music": "#a24d00",
+        "Music of Latin America": "#d0afff",
+        "Salsa music": "#a5121d",
+        Flamenco: "#00806e",
+        Blues: "#ff5b54",
+        "Music for children": "#3f5086",
+        "New-age music": "#bcce7e",
+        "Vocal music": "#a70074",
+        "A capella": "#d4c778",
+        Chant: "#a80136",
+        Mantra: "#ecbf77",
+        "Music of Africa": "#704372",
+        Afrobeat: "#ff8d75",
+        "Christian music": "#6f5989",
+        "Gospel music": "#7e4315",
+        "Music of Asia": "#997cae",
+        "Carnatic music": "#daaa82",
+        "Music of Bollywood": "#86375a",
+        Ska: "#e5a0be",
+        "Traditional music": "#92504f",
+        "Independent music": "#ff87b9"
+    };
+
+    return colors[genre] || "#000000";
 }

@@ -55,7 +55,10 @@ export default class AudioClipClassificationResults {
 
             for (const segment of this.storage[model]) {
                 const label = segment.labels.find(each => each.name === genre);
-                const score = label ? label.score : 0;
+                let score = label ? label.score : 0;
+                if (score < 0) {
+                    score = 0;
+                }
                 scores[genre].push(score);
             }
         }
