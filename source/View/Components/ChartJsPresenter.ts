@@ -124,10 +124,11 @@ export default class ChartJsPresenter implements ResultsPresenter {
             topGenres.map(genre => data[genre])
         );
 
+        const segments = results.getSegments(modelName);
+        const lastSegment = segments[segments.length - 1];
+
         if (chart.data.labels) {
-            const SEGMENT_SECONDS = 10;
-            const totalSeconds = results.getSegmentCount() * SEGMENT_SECONDS;
-            chart.data.labels.push(formatTime(totalSeconds));
+            chart.data.labels.push(formatTime(lastSegment.segment.toSecond));
         }
 
         chart.update();
@@ -137,7 +138,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
     protected createAreaDataStructure(genres: string[] = [], data?: number[][]): any[] {
         return genres.map((label, index) => ({
             label,
-            data: data ? data[index] : [0],
+            data: data ? [0].concat(data[index]) : [0],
             fill: true,
             backgroundColor: getGenreColor(label)
         }));
