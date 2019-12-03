@@ -17,7 +17,7 @@ const form = new SongForm(songFormElementId, songInputElementId);
 const player = new YouTubePlayer(playerElementId);
 
 // Setup backend api adapter
-const apiBaseUrl = "http://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com:5000"
+const apiBaseUrl = "https://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com"
 const backendAPI = new BackendAPIAxiosAdapter(apiBaseUrl);
 
 // Setup results presenter
