@@ -13,6 +13,10 @@ export default class ChartJsPresenter implements ResultsPresenter {
     protected areaCharts: Record<string, Chart>;
 
     constructor() {
+        this.createAreaChartDomElements("neural_network", "FeedForwardNetworkModel", "Feed-forward network");
+        this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
+        this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
+        this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
         this.createAreaCharts();
     }
 
@@ -23,16 +27,13 @@ export default class ChartJsPresenter implements ResultsPresenter {
     }
 
     public clear(): void {
-        // TODO: clear
+        for (const chart of Object.values(this.areaCharts)) {
+            chart.destroy();
+        }
     }
 
 
     protected createAreaCharts(): void {
-        this.createAreaChartDomElements("neural_network", "FeedForwardNetworkModel", "Feed-forward network");
-        this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
-        this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
-        this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
-
         this.areaCharts = {
             FeedForwardNetworkModel: this.createAreaChart("neural_network"),
             LSTMRecurrentNeuralNetwork: this.createAreaChart("lstm"),

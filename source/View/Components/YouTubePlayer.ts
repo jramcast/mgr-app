@@ -16,8 +16,8 @@ export default class YouTubePlayer implements Player {
         private readonly height = 1024,
         private readonly width = 1280
     ) {
-        this.onPlayingHandler = () => {};
-        this.onStoppedHandler = () => {};
+        this.onPlayingHandler = () => { };
+        this.onStoppedHandler = () => { };
 
         this.insertScriptTag();
         this.prepareGlobalReadyFunction();
@@ -76,12 +76,19 @@ export default class YouTubePlayer implements Player {
         if (!this.player) {
             return;
         }
+
         const seconds = this.player.getCurrentTime();
         if (event.data === YT.PlayerState.PLAYING) {
             this.onPlayingHandler(seconds);
-        } else {
+        } else if (this.isStopEvent(event)) {
             this.onStoppedHandler(seconds);
         }
+    }
+
+    private isStopEvent(event: YT.OnStateChangeEvent): boolean {
+        return event.data === YT.PlayerState.ENDED ||
+            event.data === YT.PlayerState.PAUSED ||
+            event.data === YT.PlayerState.CUED;
     }
 
     private insertScriptTag(): void {

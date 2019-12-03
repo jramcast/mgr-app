@@ -27,9 +27,11 @@ export default class MusicGenreClassifier {
             "SVMModel"
         ]);
 
+        this.presenter.clear();
+
+        this.player.destroy();
         this.player.onStartedPlaying(() => this.handlePlayerStartedPlaying(mediaUri));
         this.player.onStopped(() => this.handlePlayerStopped());
-
         await this.player.play(mediaUri);
     }
 
@@ -45,7 +47,9 @@ export default class MusicGenreClassifier {
 
     private handlePlayerStopped(): void {
         clearInterval(this.classificationInterval);
-        this.presenter.clear();
+        // console.log("PLAYER STOPPED");
+        // this.player.destroy();
+        // this.presenter.clear();
     }
 
     private async classifySegment(mediaUri: string): Promise<ClassificationResultsByModel> {
