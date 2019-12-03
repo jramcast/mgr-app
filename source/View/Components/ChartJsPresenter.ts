@@ -28,13 +28,13 @@ export default class ChartJsPresenter implements ResultsPresenter {
 
 
     protected createAreaCharts(): void {
-        this.createAreaChartDomElements("neural_network", "NeuralNetworkModel", "Feed-forward network");
+        this.createAreaChartDomElements("neural_network", "FeedForwardNetworkModel", "Feed-forward network");
         this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
         this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
         this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
 
         this.areaCharts = {
-            NeuralNetworkModel: this.createAreaChart("neural_network"),
+            FeedForwardNetworkModel: this.createAreaChart("neural_network"),
             LSTMRecurrentNeuralNetwork: this.createAreaChart("lstm"),
             NaiveBayesModel: this.createAreaChart("naive_bayes"),
             SVMModel: this.createAreaChart("svm")

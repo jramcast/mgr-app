@@ -6,13 +6,13 @@ describe("AudioClipClassificationResults", () => {
 
     test("allows add and retrieve last segment", () => {
 
-        const results = new AudioClipClassificationResults(["SVMModel", "NeuralNetworkModel"]);
+        const results = new AudioClipClassificationResults(["SVMModel", "FeedForwardNetworkModel"]);
         const segmentResults = {
             SVMModel: {
                 labels: [],
                 segment: { mediaUri: "", fromSecond: 0, toSecond: 10 }
             },
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [],
                 segment: { mediaUri: "", fromSecond: 0, toSecond: 10 }
             }
@@ -24,7 +24,7 @@ describe("AudioClipClassificationResults", () => {
                 labels: [],
                 segment: { mediaUri: "", fromSecond: 0, toSecond: 10 }
             },
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [],
                 segment: { mediaUri: "", fromSecond: 0, toSecond: 10 }
             }
@@ -35,9 +35,9 @@ describe("AudioClipClassificationResults", () => {
 
     test("allows add and retrieve last segment with top N classes", () => {
 
-        const results = new AudioClipClassificationResults(["NeuralNetworkModel"]);
+        const results = new AudioClipClassificationResults(["FeedForwardNetworkModel"]);
         const segmentResults = {
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [
                     { name: "Pop", score: 0.2 },
                     { name: "Rock", score: 0.03 },
@@ -50,7 +50,7 @@ describe("AudioClipClassificationResults", () => {
         results.add(segmentResults);
 
         expect(results.getLastSegment({ top: 2 })).toEqual({
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [
                     { name: "Electro", score: 0.3 },
                     { name: "Jazz", score: 0.9 }
@@ -63,9 +63,9 @@ describe("AudioClipClassificationResults", () => {
 
 
     test("returns top genres", () => {
-        const results = new AudioClipClassificationResults(["NeuralNetworkModel"]);
+        const results = new AudioClipClassificationResults(["FeedForwardNetworkModel"]);
         const segmentResults = {
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [
                     { name: "Pop", score: 0.2 },
                     { name: "Rock", score: 0.03 },
@@ -77,13 +77,13 @@ describe("AudioClipClassificationResults", () => {
         };
         results.add(segmentResults);
 
-        expect(results.getTopGenres("NeuralNetworkModel", 2)).toEqual(["Jazz", "Electro"]);
+        expect(results.getTopGenres("FeedForwardNetworkModel", 2)).toEqual(["Jazz", "Electro"]);
     });
 
     test("returns number of segments", () => {
-        const results = new AudioClipClassificationResults(["NeuralNetworkModel"]);
+        const results = new AudioClipClassificationResults(["FeedForwardNetworkModel"]);
         const segmentResults = {
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [
                     { name: "Pop", score: 0.2 },
                     { name: "Rock", score: 0.03 },
@@ -101,9 +101,9 @@ describe("AudioClipClassificationResults", () => {
     });
 
     test("returns all segments for a model", () => {
-        const results = new AudioClipClassificationResults(["NeuralNetworkModel"]);
+        const results = new AudioClipClassificationResults(["FeedForwardNetworkModel"]);
         const segmentResults = {
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [
                     { name: "Pop", score: 0.2 },
                     { name: "Rock", score: 0.03 },
@@ -117,7 +117,7 @@ describe("AudioClipClassificationResults", () => {
         results.add(segmentResults);
 
 
-        expect(results.getSegments("NeuralNetworkModel")).toEqual([
+        expect(results.getSegments("FeedForwardNetworkModel")).toEqual([
             {
                 labels: [
                     { name: "Pop", score: 0.2 },
@@ -141,9 +141,9 @@ describe("AudioClipClassificationResults", () => {
 
 
     test.only("returns scores for top genres", () => {
-        const results = new AudioClipClassificationResults(["NeuralNetworkModel"]);
+        const results = new AudioClipClassificationResults(["FeedForwardNetworkModel"]);
         const segmentResults = {
-            NeuralNetworkModel: {
+            FeedForwardNetworkModel: {
                 labels: [
                     { name: "Pop", score: 0.2 },
                     { name: "Rock", score: 0.03 },
@@ -157,7 +157,7 @@ describe("AudioClipClassificationResults", () => {
         results.add(segmentResults);
 
 
-        expect(results.getTopGenresScores("NeuralNetworkModel", 2)).toEqual({
+        expect(results.getTopGenresScores("FeedForwardNetworkModel", 2)).toEqual({
             Jazz: [0.9, 0.9],
             Electro: [0.3, 0.3]
         });

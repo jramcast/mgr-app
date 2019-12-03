@@ -21,9 +21,9 @@ export default class MusicGenreClassifier {
 
     public async startLiveClassification(mediaUri: string): Promise<void> {
         this.clipResults = new AudioClipClassificationResults([
+            "FeedForwardNetworkModel",
             "LSTMRecurrentNeuralNetwork",
             "NaiveBayesModel",
-            "NeuralNetworkModel",
             "SVMModel"
         ]);
 
