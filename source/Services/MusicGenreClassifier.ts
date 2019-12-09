@@ -47,9 +47,7 @@ export default class MusicGenreClassifier {
 
     private handlePlayerStopped(): void {
         clearInterval(this.classificationInterval);
-        // console.log("PLAYER STOPPED");
-        // this.player.destroy();
-        // this.presenter.clear();
+
     }
 
     private async classifySegment(mediaUri: string): Promise<ClassificationResultsByModel> {

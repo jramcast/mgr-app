@@ -13,11 +13,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
     protected areaCharts: Record<string, Chart>;
 
     constructor() {
-        this.createAreaChartDomElements("neural_network", "FeedForwardNetworkModel", "Feed-forward network");
-        this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
-        this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
-        this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
-        this.createAreaCharts();
+        this.initCharts();
     }
 
     public refresh(results: AudioClipClassificationResults): void {
@@ -30,8 +26,18 @@ export default class ChartJsPresenter implements ResultsPresenter {
         for (const chart of Object.values(this.areaCharts)) {
             chart.destroy();
         }
+        this.initCharts();
     }
 
+    protected initCharts(): void {
+        this.createAreaChartDomElements(
+            "neural_network", "FeedForwardNetworkModel", "Feed-forward network"
+        );
+        this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
+        this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
+        this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
+        this.createAreaCharts();
+    }
 
     protected createAreaCharts(): void {
         this.areaCharts = {
