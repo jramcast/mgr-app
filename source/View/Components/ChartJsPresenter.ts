@@ -103,7 +103,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
                             beginAtZero: true,
                             display: true,
                             min: 0,
-                            stepSize: 10,
+                            stepSize: 10
                         }
                     }],
                     yAxes: [{
@@ -155,10 +155,10 @@ export default class ChartJsPresenter implements ResultsPresenter {
 
 
 function formatTime(totalSeconds: number): string {
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds - (minutes * 60);
+    const secondsPerMinute = 60;
+    const minutes = Math.floor(totalSeconds / secondsPerMinute);
+    const seconds = totalSeconds - (minutes * secondsPerMinute);
     return `${minutes}:${seconds || "00"}`;
-
 }
 
 function getGenreColor(genre: string): string {
