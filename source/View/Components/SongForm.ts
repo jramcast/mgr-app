@@ -18,7 +18,7 @@ export default class SongForm {
     }
 
     public onSubmit(handler: EventHandlerNonNull): void {
-        this.element.addEventListener("submit", (event) => {
+        this.element.addEventListener("submit", event => {
             handler(event);
             event.preventDefault();
         });

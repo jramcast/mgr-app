@@ -17,8 +17,12 @@ const form = new SongForm(songFormElementId, songInputElementId);
 const player = new YouTubePlayer(playerElementId);
 
 // Setup backend api adapter
-// const apiBaseUrl = "https://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com";
-const apiBaseUrl = "http://localhost:5000";
+let apiBaseUrl;
+if (process.env.BUILD_ENV === "production") {
+    apiBaseUrl = "https://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com";
+} else {
+    apiBaseUrl = "http://localhost:5000";
+}
 const backendAPI = new BackendAPIAxiosAdapter(apiBaseUrl);
 
 // Setup results presenter

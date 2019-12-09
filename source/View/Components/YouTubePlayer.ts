@@ -34,13 +34,13 @@ export default class YouTubePlayer implements Player {
             this.destroy();
         }
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             this.player = new YT.Player(this.elementId, {
                 height: this.height,
                 width: this.width,
                 videoId: videoUri,
                 events: {
-                    onReady: (event) => {
+                    onReady: event => {
                         event.target.playVideo();
                         event.target.unMute();
                         resolve();
@@ -110,7 +110,7 @@ export default class YouTubePlayer implements Player {
     }
 
     private retryStart(videoUri: string): Promise<void> {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             setTimeout(async () => {
                 await this.play(videoUri);
                 resolve();

@@ -50,7 +50,9 @@ describe("BackendAPIAxiosAdapter", () => {
             toSecond: 20
         });
 
-        expect(Axios.get).toHaveBeenLastCalledWith("http://localhost/segment/classify?clip=abc123&from=10");
+        expect(Axios.get).toHaveBeenLastCalledWith(
+            "http://localhost/segment/classify?clip=abc123&from=10"
+        );
     });
 
 });
