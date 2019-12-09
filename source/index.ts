@@ -5,6 +5,8 @@ import BackendAPIAxiosAdapter from "./Backend/BackendAPIAxiosAdapter";
 import MusicGenreClassifier from "./Services/MusicGenreClassifier";
 import ChartJsPresenter from "./View/Components/ChartJsPresenter";
 
+// Injected by webpack
+declare const API_URL;
 
 // Define DOM element ids
 const songFormElementId = "songForm";
@@ -17,13 +19,7 @@ const form = new SongForm(songFormElementId, songInputElementId);
 const player = new YouTubePlayer(playerElementId);
 
 // Setup backend api adapter
-let apiBaseUrl;
-if (process.env.BUILD_ENV === "development") {
-    apiBaseUrl = "http://localhost:5000";
-} else {
-    apiBaseUrl = "https://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com";
-}
-const backendAPI = new BackendAPIAxiosAdapter(apiBaseUrl);
+const backendAPI = new BackendAPIAxiosAdapter(API_URL);
 
 // Setup results presenter
 const presenter = new ChartJsPresenter();
