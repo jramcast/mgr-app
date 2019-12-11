@@ -32,3 +32,10 @@ const classifier = new MusicGenreClassifier(player, backendAPI, presenter);
 form.onSubmit(() => {
     classifier.startLiveClassification(form.getSongUri());
 });
+
+// Start classification automatically if "v" query param is specified
+const videoUri = urlParams.get("v");
+if (videoUri) {
+    form.songInputElement.value = videoUri;
+    classifier.startLiveClassification(videoUri);
+}
