@@ -25,7 +25,8 @@ export default class BackendAPIAxiosAdapter implements BackendAPI {
 
     private buildUrl(audioSegment: AudioSegment): string {
         const { mediaUri, fromSecond } = audioSegment;
-        return `${this.apiBaseUrl}/segment/classify?clip=${this.getVideoIdFromUri(mediaUri)}&from=${fromSecond}`;
+        const videoId = this.getVideoIdFromUri(mediaUri);
+        return `${this.apiBaseUrl}/segment/classify?clip=${videoId}&from=${fromSecond}`;
     }
 
     private getVideoIdFromUri(videoUri: string): string {

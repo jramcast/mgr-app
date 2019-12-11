@@ -79,9 +79,6 @@ export default class YouTubePlayer implements Player {
             return;
         }
 
-
-        console.log("event received", event.data);
-
         const seconds = this.player.getCurrentTime();
         if (event.data === YT.PlayerState.PLAYING) {
             this.onPlayingHandler(seconds);
