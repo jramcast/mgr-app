@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Music Genre Classification DEMO</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="section main-section">
+        <div class="overlay semitransparent-gradient"></div>
+        <div id="mainContainer" class="container">
+            <h1 class="title has-text-light main-title">Music Genre Classification/Recognition with Audioset</h1>
+            <p class="has-text-light">
+                This is a demo of Music Genre Classification/Recognition as developed in the study
+                <strong>
+                    <a href="https://link.springer.com/article/10.1007/s10844-019-00582-9">Machine learning for music genre: multifaceted review and experimentation with Audioset</a>
+                </strong>.
+                This demo includes four different estimators models, trained with the <a href="https://research.google.com/audioset/download.html">VGGish Audioset features</a>,
+                and using the audio of any Youtube video as input.
+            </p>
+            <p class="has-text-light">
+                Classification is performed on 10-second segments as the video clip plays in the background.
+                Each graph shows the top-10 genres for a clip as a result of taking those with the highest average score for all clip segments.
+            </p>
+
+
+            <form id="songForm" action="">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id">
+                                <!-- fJ9rUzIMcZQ Bohemian Rapsody -->
+                        </div>
+                        <!-- <div class="control">
+                            <div class="select is-medium">
+                                <select id="modelSelector" name="model">
+                                    <option value="neural_network" selected="selected">Feed-forward Neural Network</option>
+                                    <option value="lstm">Recurrent Neural Network (LSTM)</option>
+                                    <option value="naive_bayes">Naive Bayes</option>
+                                    <option value="svm">Linear SVM</option>
+                                </select>
+                                </div>
+                        </div> -->
+                        <div class="control">
+                            <input class="button is-outlined is-medium" type="submit" value="Analyze">
+                        </div>
+                    </div>
+                </form>
+
+        </div>
+    </section>
+    <div id="player" class="full-background-video"></div>
+<script type="text/javascript" src="index.js"></script></body>
+
+</html>
