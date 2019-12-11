@@ -36,7 +36,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
         );
         this.createAreaChartDomElements(
             "lstm", "LSTMRecurrentNeuralNetwork",
-            "Long short-term memory (LSTM) neural network"
+            "Long short-term memory (LSTM) neural Network"
         );
         this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
         this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
