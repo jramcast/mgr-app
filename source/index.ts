@@ -22,7 +22,9 @@ const player = new YouTubePlayer(playerElementId);
 const backendAPI = new BackendAPIAxiosAdapter(API_URL);
 
 // Setup results presenter
-const presenter = new ChartJsPresenter();
+const urlParams = new URLSearchParams(window.location.search);
+const downloadMode = urlParams.get("download") === "1";
+const presenter = new ChartJsPresenter(downloadMode);
 
 // Setup music classifier service
 const classifier = new MusicGenreClassifier(player, backendAPI, presenter);

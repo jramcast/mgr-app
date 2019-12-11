@@ -27,6 +27,7 @@ export default class MusicGenreClassifier {
             "SVMModel"
         ]);
 
+        this.cancelPreviousClassificationIntervals();
         this.presenter.clear();
 
         this.player.destroy();
@@ -46,7 +47,7 @@ export default class MusicGenreClassifier {
     }
 
     private handlePlayerStopped(): void {
-        clearInterval(this.classificationInterval);
+        this.cancelPreviousClassificationIntervals();
     }
 
     private async classifySegment(mediaUri: string): Promise<ClassificationResultsByModel> {
@@ -69,6 +70,10 @@ export default class MusicGenreClassifier {
             }
         }
         return result;
+    }
+
+    private cancelPreviousClassificationIntervals(): void {
+        clearInterval(this.classificationInterval);
     }
 
 }

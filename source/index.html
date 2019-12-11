@@ -10,23 +10,28 @@
 </head>
 
 <body>
-    <section class="section main-section semitransparent-gradient">
+    <section class="section main-section">
+        <div class="overlay semitransparent-gradient"></div>
         <div id="mainContainer" class="container">
-            <h1 class="title has-text-light main-title">DEMO</h1>
+            <h1 class="title has-text-light main-title">Music Genre Classification/Recognition with Audioset</h1>
             <p class="has-text-light">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum
+                This is a demo of Music Genre Classification/Recognition as developed in the study
+                <strong>
+                    <a href="https://link.springer.com/article/10.1007/s10844-019-00582-9">Machine learning for music genre: multifaceted review and experimentation with Audioset</a>
+                </strong>.
+                This demo includes four different estimators models, trained with the <a href="https://research.google.com/audioset/download.html">VGGish Audioset features</a>,
+                and using the audio of any Youtube video as input.
             </p>
+            <p class="has-text-light">
+                Classification is performed on 10-second segments as the video clip plays in the background.
+                Each graph shows the top-10 genres for a clip as a result of taking those with the highest average score for all clip segments.
+            </p>
+
 
             <form id="songForm" action="">
                     <div class="field has-addons">
                         <div class="control">
-                            <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id"
-                                value="fJ9rUzIMcZQ">
+                            <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id">
                                 <!-- fJ9rUzIMcZQ Bohemian Rapsody -->
                         </div>
                         <!-- <div class="control">

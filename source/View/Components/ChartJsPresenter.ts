@@ -12,7 +12,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
 
     protected areaCharts: Record<string, Chart>;
 
-    constructor() {
+    constructor(protected readonly downloadMode = false) {
         this.initCharts();
     }
 
@@ -51,7 +51,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
     protected createAreaChartDomElements(elementId: string, chartId: string, name: string): void {
         const canvas = document.createElement("canvas");
         canvas.id = elementId;
-        canvas.height = 100;
+        canvas.height = 90;
         const button = document.createElement("button");
         button.innerHTML = "Download";
         const downloadLink = document.createElement("a");
@@ -65,14 +65,16 @@ export default class ChartJsPresenter implements ResultsPresenter {
         button.className = "download button";
 
         const title = document.createElement("h3");
-        title.className = "title is-3 chart-title";
+        title.className = "title is-4 chart-title";
         title.innerText = name;
 
         const chartContainer = document.createElement("div");
         chartContainer.className = "chart-container";
         chartContainer.appendChild(title);
         chartContainer.appendChild(canvas);
-        chartContainer.appendChild(button);
+        if (this.downloadMode) {
+            chartContainer.appendChild(button);
+        }
         chartContainer.appendChild(downloadLink);
         const mainContainer = document.getElementById("mainContainer");
         if (mainContainer) {
@@ -110,7 +112,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
                         stacked: true,
                         scaleLabel: {
                             display: true,
-                            labelString: "Score"
+                            labelString: "Score (stacked)"
                         }
                     }]
                 }

@@ -25,20 +25,18 @@ export default class YouTubePlayer implements Player {
 
 
     public play(videoUri: string): Promise<void> {
+        const videoId = this.getVideoIdFromUri(videoUri);
+
         // If Youtube API is not loaded yet, try to retry after some seconds
         if (!this.isApiReady) {
-            return this.retryStart(videoUri);
-        }
-
-        if (this.player) {
-            this.destroy();
+            return this.retryStart(videoId);
         }
 
         return new Promise(resolve => {
             this.player = new YT.Player(this.elementId, {
                 height: this.height,
                 width: this.width,
-                videoId: videoUri,
+                videoId,
                 events: {
                     onReady: event => {
                         event.target.playVideo();
@@ -68,7 +66,11 @@ export default class YouTubePlayer implements Player {
 
     public destroy(): void {
         if (this.player) {
-            this.player.destroy();
+            try {
+                this.player.destroy();
+            } catch (error) {
+                console.error("Could not destroy player", error);
+            }
         }
     }
 
@@ -76,6 +78,9 @@ export default class YouTubePlayer implements Player {
         if (!this.player) {
             return;
         }
+
+
+        console.log("event received", event.data);
 
         const seconds = this.player.getCurrentTime();
         if (event.data === YT.PlayerState.PLAYING) {
@@ -109,13 +114,22 @@ export default class YouTubePlayer implements Player {
         };
     }
 
-    private retryStart(videoUri: string): Promise<void> {
+    private retryStart(videoId: string): Promise<void> {
         return new Promise(resolve => {
             setTimeout(async () => {
-                await this.play(videoUri);
+                await this.play(videoId);
                 resolve();
             }, 5 * 1000);
         });
+    }
+
+    private getVideoIdFromUri(videoUri: string): string {
+        try {
+            const url = new URL(videoUri);
+            return url.searchParams.get("v") || "";
+        } catch {
+            return videoUri;
+        }
     }
 
 }

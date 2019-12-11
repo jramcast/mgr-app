@@ -12,16 +12,25 @@ body, html {
     height: calc(100% - 40px);
     position: absolute;
     width: 100%;
+    background: transparent;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 40px;
+    left: 0;
 }
 
 .semitransparent-gradient {
-    background: rgba(0,0,0,0.8);
-    background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,0) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.8)), color-stop(85%, rgba(0,0,0,0.8)), color-stop(100%, rgba(0,0,0,0)));
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,0) 100%);
-    background: -o-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,0) 100%);
-    background: -ms-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,0) 100%);
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,0) 100%);
+    background: rgba(0,0,0,0.5);
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.5)), color-stop(85%, rgba(0,0,0,0.5)), color-stop(100%, rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0) 100%);
+    background: -o-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0) 100%);
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 85%, rgba(0,0,0,0) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
 }
 
@@ -41,15 +50,27 @@ body, html {
 }
 
 .chart-title {
-    margin: 5% 0;
+    margin: 2rem 0;
     color: #fafafa;
+}
+
+.chart-container {
+    margin-bottom: 10rem;
 }
 
 #songUriInput {
     background: rgba(255, 255, 255, 0.2);
     color: #fafafa;
 }
-
-.chart-container {
-    margin-bottom: 1rem;
+#songUriInput::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #6a6a6a;
+}
+#songUriInput::-moz-placeholder { /* Firefox 19+ */
+    color: #6a6a6a;
+}
+#songUriInput:-ms-input-placeholder { /* IE 10+ */
+    color: #6a6a6a;
+}
+#songUriInput:-moz-placeholder { /* Firefox 18- */
+    color: #6a6a6a;
 }

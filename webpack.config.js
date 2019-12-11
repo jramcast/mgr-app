@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 
 let API_URL = "https://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com";
-if (process.env.BUILD_ENV === "development") {
-    API_URL = "http://localhost:5000";
-}
+// if (process.env.BUILD_ENV === "development") {
+//     API_URL = "http://localhost:5000";
+// }
 
 module.exports = {
     mode: process.env.BUILD_ENV,
