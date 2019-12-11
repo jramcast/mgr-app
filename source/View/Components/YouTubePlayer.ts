@@ -37,9 +37,6 @@ export default class YouTubePlayer implements Player {
                 height: this.height,
                 width: this.width,
                 videoId,
-                playerVars: {
-                    autohide: YT.AutoHide.AlwaysVisible
-                },
                 events: {
                     onReady: event => {
                         event.target.playVideo();
