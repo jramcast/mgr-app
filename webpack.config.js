@@ -43,7 +43,7 @@ module.exports = {
         new webpack.DefinePlugin({
             API_URL: JSON.stringify(API_URL)
         }),
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
     ],
     devtool: "inline-source-map",
 
