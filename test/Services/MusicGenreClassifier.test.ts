@@ -15,45 +15,15 @@ describe("MusicGenreClassifier", () => {
     beforeEach(() => {
         player = new FakePlayer();
         backendAPI = new FakeBackendAPI();
-
+        resultsPresenter = new ResultsFakePresenter();
         classifier = new MusicGenreClassifier(player, backendAPI, resultsPresenter);
     });
 
-    // REVIEW
-    //
-    // test.skip("classify() returns results from backendAPI", async() => {
-    //     backendAPI.classifySegment = jest.fn().mockResolvedValue({
-    //         NaiveBayes: []
-    //     });
 
-    //     const result = await classifier.classifySegment({
-    //         mediaUri: "abc1234",
-    //         fromSecond: 20,
-    //         toSecond: 30
-    //     });
-
-    //     expect(result).toEqual({ NaiveBayes: [] });
-    // });
-
-    // test.skip("classify() does not allow 2 concurrent calls to backend API", () => {
-    //     backendAPI.classifySegment = jest.fn();
-
-    //     const audioSegment = {
-    //         mediaUri: "abc1234",
-    //         fromSecond: 20,
-    //         toSecond: 30
-    //     };
-    //     classifier.classifySegment(audioSegment);
-    //     classifier.classifySegment(audioSegment);
-
-    //     expect(backendAPI.classifySegment).toBeCalledTimes(1);
-    // });
-
-
-    test("startLiveClassification() plays the media", () => {
+    test("startLiveClassification() plays the media", async() => {
         player.play = jest.fn();
 
-        classifier.startLiveClassification("abc1234");
+        await classifier.startLiveClassification("abc1234");
 
         expect(player.play).toHaveBeenCalled();
     });

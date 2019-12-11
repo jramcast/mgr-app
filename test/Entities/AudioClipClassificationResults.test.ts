@@ -140,7 +140,7 @@ describe("AudioClipClassificationResults", () => {
     });
 
 
-    test.only("returns scores for top genres", () => {
+    test("returns scores for top genres", () => {
         const results = new AudioClipClassificationResults(["FeedForwardNetworkModel"]);
         const segmentResults = {
             FeedForwardNetworkModel: {

@@ -10,7 +10,7 @@ Chart.defaults.global.defaultFontColor = CHART_FONT_COLOR;
 
 export default class ChartJsPresenter implements ResultsPresenter {
 
-    protected areaCharts: Record<string, Chart>;
+    protected areaCharts: Record<string, Chart> = {};
 
     constructor(protected readonly downloadMode = false) {
         this.initCharts();
@@ -26,17 +26,20 @@ export default class ChartJsPresenter implements ResultsPresenter {
         for (const chart of Object.values(this.areaCharts)) {
             chart.destroy();
         }
-        this.initCharts();
+        this.createAreaCharts();
     }
 
     protected initCharts(): void {
         this.createAreaChartDomElements(
-            "neural_network", "FeedForwardNetworkModel", "Feed-forward network"
+            "neural_network", "FeedForwardNetworkModel",
+            "Feed-forward neural network"
         );
-        this.createAreaChartDomElements("lstm", "LSTMRecurrentNeuralNetwork", "LSTM Network");
+        this.createAreaChartDomElements(
+            "lstm", "LSTMRecurrentNeuralNetwork",
+            "Long short-term memory (LSTM) neural network"
+        );
         this.createAreaChartDomElements("naive_bayes", "NaiveBayesModel", "Naive Bayes");
         this.createAreaChartDomElements("svm", "SVMModel", "Support Vector Machine");
-        this.createAreaCharts();
     }
 
     protected createAreaCharts(): void {
@@ -105,11 +108,15 @@ export default class ChartJsPresenter implements ResultsPresenter {
                             beginAtZero: true,
                             display: true,
                             min: 0,
-                            stepSize: 10
+                            stepSize: 10,
+                            fontSize: 12
                         }
                     }],
                     yAxes: [{
                         stacked: true,
+                        ticks: {
+                            fontSize: 12
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: "Score (stacked)"
@@ -149,9 +156,17 @@ export default class ChartJsPresenter implements ResultsPresenter {
             label,
             data: data ? [0].concat(data[index]) : [0],
             fill: true,
-            backgroundColor: getGenreColor(label)
+            backgroundColor: this.getGenreColor(label)
         }));
     }
+
+    protected getGenreColor(genre: string): string {
+        if (this.downloadMode) {
+            return getGenreColorForDownload(genre);
+        }
+        return `${getGenreColorForDownload(genre)}77`;
+    }
+
 
 }
 
@@ -163,7 +178,7 @@ function formatTime(totalSeconds: number): string {
     return `${minutes}:${seconds || "00"}`;
 }
 
-function getGenreColor(genre: string): string {
+function getGenreColorForDownload(genre: string): string {
     const colors = {
         "Pop music": "#5ede83",
         "Hip hop music": "#8038be",
