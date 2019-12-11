@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 
 let API_URL = "https://9f1a5f0e-03f3-4dd4-b222-a314c9eea74d.pub.cloud.scaleway.com";
@@ -41,7 +42,8 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             API_URL: JSON.stringify(API_URL)
-        })
+        }),
+        new BundleAnalyzerPlugin()
     ],
     devtool: "inline-source-map",
 
