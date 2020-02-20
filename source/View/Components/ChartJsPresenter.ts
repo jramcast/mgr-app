@@ -102,6 +102,11 @@ export default class ChartJsPresenter implements ResultsPresenter {
                 labels: ["0"]
             },
             options: {
+                elements: {
+                    line: {
+                        fill: "bottom" // By default, fill lines to the previous dataset
+                    }
+                },
                 scales: {
                     xAxes: [{
                         ticks: {
@@ -155,7 +160,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
         return genres.map((label, index) => ({
             label,
             data: data ? [0].concat(data[index]) : [0],
-            fill: true,
+            fill: "origin",
             backgroundColor: this.getGenreColor(label)
         }));
     }
@@ -164,7 +169,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
         if (this.downloadMode) {
             return getGenreColorForDownload(genre);
         }
-        return `${getGenreColorForDownload(genre)}77`;
+        return `${getGenreColorForDownload(genre)}DD`;
     }
 
 
