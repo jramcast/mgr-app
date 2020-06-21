@@ -10,7 +10,7 @@ This application is a demo of the research conducted for the following study:
 
 If you wish to reference this work, please cite it as:
 
-> Ramírez, J. & Flores, M.J. J Intell Inf Syst (2019). https://doi.org/10.1007/s10844-019-00582-9
+> Ramírez, J. & Flores, M.J. Machine learning for music genre: multifaceted review and experimentation with Audioset. J Intell Inf Syst (2019). https://doi.org/10.1007/s10844-019-00582-9
 
 ## Related repositories
 
