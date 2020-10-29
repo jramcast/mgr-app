@@ -8,9 +8,9 @@ This application is a demo of the research conducted for the following study:
 
 * [Machine learning for music genre: multifaceted review and experimentation with audioset](https://link.springer.com/article/10.1007/s10844-019-00582-9)
 
-If you wish to reference this work, please cite it as:
+**If you use this code or wish to reference this work, please cite it as**:
 
-> Ramírez, J. & Flores, M.J. Machine learning for music genre: multifaceted review and experimentation with Audioset. J Intell Inf Syst (2019). https://doi.org/10.1007/s10844-019-00582-9
+> Ramírez, J., Flores, M.J. Machine learning for music genre: multifaceted review and experimentation with audioset. J Intell Inf Syst 55, 469–499 (2020). https://doi.org/10.1007/s10844-019-00582-9
 
 ## Related repositories
 
