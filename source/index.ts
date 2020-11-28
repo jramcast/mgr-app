@@ -4,6 +4,7 @@ import SongForm from "./View/Components/SongForm";
 import BackendAPIAxiosAdapter from "./Backend/BackendAPIAxiosAdapter";
 import MusicGenreClassifier from "./Services/MusicGenreClassifier";
 import ChartJsPresenter from "./View/Components/ChartJsPresenter";
+import * as YouTubeWarning from "./View/Components/YouTubeWarning";
 
 // Injected by webpack
 declare const API_URL;
@@ -31,6 +32,7 @@ const classifier = new MusicGenreClassifier(player, backendAPI, presenter);
 
 form.onSubmit(() => {
     classifier.startLiveClassification(form.getSongUri());
+    YouTubeWarning.show();
 });
 
 // Start classification automatically if "v" query param is specified
@@ -38,13 +40,5 @@ const videoUri = urlParams.get("v");
 if (videoUri) {
     form.songInputElement.value = videoUri;
     classifier.startLiveClassification(videoUri);
-}
-
-// Handle close warning button
-const warning = document.getElementById("youtube-warning");
-const warningCloseButton = document.getElementById("youtube-warning-close");
-if (warning && warningCloseButton) {
-    warningCloseButton.addEventListener("click", () => {
-        warning.style.display = 'none';
-    });
+    YouTubeWarning.show();
 }
