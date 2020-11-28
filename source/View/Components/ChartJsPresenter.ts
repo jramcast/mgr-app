@@ -91,7 +91,8 @@ export default class ChartJsPresenter implements ResultsPresenter {
         statsTitle.className = "title is-5";
         statsTitle.innerHTML = "Top genres after <span class=\"segment-count\">0</span> processed segments";
         const para = document.createElement("p");
-        para.innerText = "The score of each genre is the average value of the genre scores obtained in each of the processed segments."
+        para.innerText = "The score of each genre is the average value of the genre scores returned by the model in each of the processed segments. " +
+        "We also provide the normalized score, which represents the strength that the classifier assigns to each genre.";
         statsContainer.appendChild(statsTitle);
         statsContainer.appendChild(para);
         statsContainer.appendChild(ol);
@@ -183,11 +184,15 @@ export default class ChartJsPresenter implements ResultsPresenter {
             const ol = listsElements[0];
             const genres = results.getTopGenres(modelName, 10);
             const scores = results.getTopGenresAverageScore(modelName, 10);
+            const normalizedScores = results.getTopGenresNormalizedAverageScore(modelName, 10);
             results.getSegmentCount();
 
             ol.innerHTML = "";
             genres.forEach(genre => {
-                ol.innerHTML +=`<li><strong>${genre}</strong>: ${scores[genre]}</li>`;
+                ol.innerHTML +=`<li>
+                    <strong>${genre}</strong>: ${scores[genre].toFixed(5)}
+                    (normalized: ${normalizedScores[genre].toFixed(2)})
+                </li>`;
             });
         }
 

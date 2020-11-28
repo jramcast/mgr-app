@@ -39,3 +39,12 @@ if (videoUri) {
     form.songInputElement.value = videoUri;
     classifier.startLiveClassification(videoUri);
 }
+
+// Handle close warning button
+const warning = document.getElementById("youtube-warning");
+const warningCloseButton = document.getElementById("youtube-warning-close");
+if (warning && warningCloseButton) {
+    warningCloseButton.addEventListener("click", () => {
+        warning.style.display = 'none';
+    });
+}

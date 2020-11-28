@@ -84,6 +84,22 @@ export default class AudioClipClassificationResults {
         return averages;
     }
 
+    public getTopGenresNormalizedAverageScore(model: ModelName, top = 5): Record<ModelName, number> {
+        const scores = this.getTopGenresAverageScore(model, top);
+
+        let total = 0;
+        Object.keys(scores).forEach(genre => {
+            total += scores[genre];
+        });
+
+        const normalized = {};
+        Object.keys(scores).forEach(genre => {
+            normalized[genre] = scores[genre] / total;
+        });
+
+        return normalized;
+    }
+
     public getSegments(model: ModelName): ClassificationResults[] {
         return this.storage[model];
     }
