@@ -38,7 +38,8 @@ export default class AudioClipClassificationResults {
 
         for (const segment of this.storage[model]) {
             for (const label of segment.labels) {
-                totals[label.name] = (totals[label.name] || 0) + label.score;
+                const score = label.score > 0 ? label.score : 0;
+                totals[label.name] = (totals[label.name] || 0) + score;
             }
         }
 
