@@ -28,7 +28,29 @@
 
             <p class="content has-text-light">You can start with an example: <a href="?v=4Eo84jDIMKI">CHVRCHES - Leave a trace</a>, or try any other Youtube video:</p>
 
-            <article id="youtube-warning" class="message is-warning">
+            <form id="songForm" action="">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id">
+                            <!-- fJ9rUzIMcZQ Bohemian Rapsody -->
+                    </div>
+                    <!-- <div class="control">
+                        <div class="select is-medium">
+                            <select id="modelSelector" name="model">
+                                <option value="neural_network" selected="selected">Feed-forward Neural Network</option>
+                                <option value="lstm">Recurrent Neural Network (LSTM)</option>
+                                <option value="naive_bayes">Naive Bayes</option>
+                                <option value="svm">Linear SVM</option>
+                            </select>
+                            </div>
+                    </div> -->
+                    <div class="control">
+                        <input class="button is-outlined is-medium" type="submit" value="Analyze">
+                    </div>
+                </div>
+            </form>
+
+            <article id="youtube-warning" class="message is-warning" style="display: none;">
                 <div class="message-header">
                   <p>YouTube limitations</p>
                   <button id="youtube-warning-close" class="delete" aria-label="delete"></button>
@@ -37,28 +59,6 @@
                   This application may fail to classify some segments or all of them, depending on the load and the number of requests sent to YouTube.
                 </div>
             </article>
-            
-            <form id="songForm" action="">
-                    <div class="field has-addons">
-                        <div class="control">
-                            <input id="songUriInput" class="input is-medium" type="text" placeholder="Youtube link or video id">
-                                <!-- fJ9rUzIMcZQ Bohemian Rapsody -->
-                        </div>
-                        <!-- <div class="control">
-                            <div class="select is-medium">
-                                <select id="modelSelector" name="model">
-                                    <option value="neural_network" selected="selected">Feed-forward Neural Network</option>
-                                    <option value="lstm">Recurrent Neural Network (LSTM)</option>
-                                    <option value="naive_bayes">Naive Bayes</option>
-                                    <option value="svm">Linear SVM</option>
-                                </select>
-                                </div>
-                        </div> -->
-                        <div class="control">
-                            <input class="button is-outlined is-medium" type="submit" value="Analyze">
-                        </div>
-                    </div>
-                </form>
 
         </div>
     </section>
