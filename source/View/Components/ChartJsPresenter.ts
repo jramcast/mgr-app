@@ -19,6 +19,7 @@ export default class ChartJsPresenter implements ResultsPresenter {
     public refresh(results: AudioClipClassificationResults): void {
         results.models.forEach(modelName => {
             this.updateAreaChart(modelName, results);
+            this.updateChartStats(modelName, results);
         });
     }
 
@@ -79,9 +80,27 @@ export default class ChartJsPresenter implements ResultsPresenter {
             chartContainer.appendChild(button);
         }
         chartContainer.appendChild(downloadLink);
+
+        const statsContainer = document.createElement("div");
+        statsContainer.id = chartId + "_stats";
+        statsContainer.className = "stats-container";
+
+        const ol = document.createElement("ol");
+        ol.className = "stats-list";
+        const statsTitle = document.createElement("h4");
+        statsTitle.className = "title is-5";
+        statsTitle.innerHTML = "Top genres after <span class=\"segment-count\">0</span> processed segments";
+        const para = document.createElement("p");
+        para.innerText = "The score of each genre is the average value of the genre scores obtained in each of the processed segments."
+        statsContainer.appendChild(statsTitle);
+        statsContainer.appendChild(para);
+        statsContainer.appendChild(ol);
+
+
         const mainContainer = document.getElementById("mainContainer");
         if (mainContainer) {
             mainContainer.append(chartContainer);
+            mainContainer.append(statsContainer);
         }
     }
 
@@ -155,6 +174,29 @@ export default class ChartJsPresenter implements ResultsPresenter {
         chart.update();
     }
 
+    protected updateChartStats(modelName: string, results: AudioClipClassificationResults): void {
+        const statsContainer = getStatsContainer(modelName);
+        const listsElements = statsContainer?.getElementsByClassName("stats-list");
+        const counterElements = statsContainer?.getElementsByClassName("segment-count");
+
+        if (listsElements && listsElements.length > 0){
+            const ol = listsElements[0];
+            const genres = results.getTopGenres(modelName, 10);
+            const scores = results.getTopGenresAverageScore(modelName, 10);
+            results.getSegmentCount();
+
+            ol.innerHTML = "";
+            genres.forEach(genre => {
+                ol.innerHTML +=`<li><strong>${genre}</strong>: ${scores[genre]}</li>`;
+            });
+        }
+
+        if (counterElements && counterElements.length > 0) {
+            counterElements[0].innerHTML = `${results.getSegmentCount()}`;
+        }
+
+    }
+
 
     protected createAreaDataStructure(genres: string[] = [], data?: number[][]): any[] {
         return genres.map((label, index) => ({
@@ -181,6 +223,10 @@ function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / secondsPerMinute);
     const seconds = totalSeconds - (minutes * secondsPerMinute);
     return `${minutes}:${seconds || "00"}`;
+}
+
+function getStatsContainer(modelName: string): HTMLElement | null {
+    return document.getElementById(modelName + "_stats");
 }
 
 function getGenreColorForDownload(genre: string): string {

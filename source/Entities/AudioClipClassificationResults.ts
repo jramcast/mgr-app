@@ -66,6 +66,23 @@ export default class AudioClipClassificationResults {
         return scores;
     }
 
+    public getTopGenresAverageScore(model: ModelName, top = 5): Record<ModelName, number> {
+        const topGenres = this.getTopGenres(model, top);
+        const scoresByGenre = this.getTopGenresScores(model, top);
+
+        const averages = {};
+
+        for (const genre of topGenres) {
+            let genreAverage = 0;
+            for (const segmentScore of scoresByGenre[genre]) {
+                genreAverage += segmentScore;
+            }
+            averages[genre] = genreAverage / scoresByGenre[genre].length;
+        }
+
+        return averages;
+    }
+
     public getSegments(model: ModelName): ClassificationResults[] {
         return this.storage[model];
     }
