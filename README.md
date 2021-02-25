@@ -12,6 +12,11 @@ This application is a demo of the research conducted for the following study:
 
 **If you use this code or wish to reference this work, please cite it as**:
 
+> Ramírez, J., Flores, M.J, "Web-Based Music Genre Classification for Timeline Song Visualization and Analysis," in IEEE Access, vol. 9, pp. 18801-18816, 2021, doi: 10.1109/ACCESS.2021.3053864.
+> 
+
+**If wish to reference the underlying models, cite**:
+
 > Ramírez, J., Flores, M.J. Machine learning for music genre: multifaceted review and experimentation with audioset. J Intell Inf Syst 55, 469–499 (2020). https://doi.org/10.1007/s10844-019-00582-9
 
 ## Related repositories
